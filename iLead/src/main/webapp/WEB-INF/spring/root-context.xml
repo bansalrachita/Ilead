@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<bean id="userValidator" class="com.spring.mvc.validator.UserValidator"></bean>
+	
+	<bean id="userDAO" class="com.spring.mvc.userdao.UserDAO"></bean>
+	<bean id="empDAO" class="com.spring.mvc.userdao.EmployeeDAO"></bean>
+	<bean id="managerDAO" class="com.spring.mvc.userdao.ManagerDAO"></bean>
+	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="rachita.spring@gmail.com" />
+		<property name="password" value="rachita@spring@2015" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="message" class="org.springframework.mail.SimpleMailMessage"></bean>
+	
+	<bean id="mail" class="com.spring.mvc.mailsender.Mail">
+		<property name="mailSender" ref="mailSender" />
+		<property name="simpleMailMessage" ref="message"/>
+	</bean>
+	
+	<bean id="user" class="com.spring.mvc.user.User"/>
+	<bean id="quizMaster" class="com.spring.mvc.quiz.QuizMaster"/>
+	
+</beans>
