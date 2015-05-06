@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="rachita.spring@gmail.com" />
+		<property name="port" value="25" />
+		<property name="username" value="rachita.spring@gmail.com" />
+		<property name="password" value="rachita@spring@2015" />
+
+		<!-- <property name="javaMailProperties"> <props> <prop key="mail.smtp.auth">true</prop> 
+			<prop key="mail.smtp.starttls.enable">true</prop> </props> </property> -->
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="mail" class="com.spring.mvc.mailsender.Mail">
+		<property name="mailSender" ref="mailSender" />
+		<property name="simpleMailMessage" ref="customeMailMessage" />
+	</bean>
+
+	<bean id="customeMailMessage" class="org.springframework.mail.SimpleMailMessage">
+
+		<property name="from" value="rachita.spring@gmail.com" />
+		<property name="to" value="rachita.gemm30@gmail.com" />
+		<property name="subject" value="Testing Subject" />
+		<property name="text">
+			<value>
+<![CDATA[
+Dear %s,
+Mail Content : %s
+]]>
+			</value>
+		</property>
+	</bean>
+</beans>
